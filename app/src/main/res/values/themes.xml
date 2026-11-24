@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Credenshow" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Cores -->
+        <item name="colorPrimary">@color/cs_primary</item>
+        <item name="colorPrimaryDark">@color/cs_primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/cs_primary_soft</item>
+        <item name="colorOnPrimaryContainer">@color/cs_primary_dark</item>
+        <item name="colorSecondary">@color/cs_secondary</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/cs_primary_soft</item>
+        <item name="colorOnSecondaryContainer">@color/cs_primary_dark</item>
+        <item name="colorSurface">@color/cs_surface</item>
+        <item name="colorOnSurface">@color/cs_dark</item>
+        <item name="colorOnSurfaceVariant">@color/cs_text_secondary</item>
+        <item name="colorOutline">@color/cs_border</item>
+        <item name="colorError">@color/cs_error</item>
+        <item name="android:colorBackground">@color/cs_background</item>
+        <item name="android:windowBackground">@color/cs_background</item>
+        <item name="android:textColorPrimary">@color/cs_dark</item>
+        <item name="android:textColorSecondary">@color/cs_text_secondary</item>
+        <item name="android:statusBarColor">@color/cs_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="elevationOverlayEnabled">false</item>
+
+        <!-- Tipografia (Inter, mesma fonte do site) -->
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textViewStyle">@style/Widget.Credenshow.TextView</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.Credenshow.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.Credenshow.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.Credenshow.TitleMedium</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.Credenshow.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.Credenshow.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.Credenshow.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.Credenshow.Button</item>
+
+        <!-- Componentes -->
+        <item name="materialButtonStyle">@style/Widget.Credenshow.Button</item>
+        <item name="materialCardViewStyle">@style/Widget.Credenshow.Card</item>
+        <item name="textInputStyle">@style/Widget.Credenshow.TextInput</item>
+        <item name="android:spinnerItemStyle">@style/Widget.Credenshow.SpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/Widget.Credenshow.SpinnerDropDownItem</item>
+    </style>
+
+    <!-- ===== Tipografia ===== -->
+
+    <style name="Widget.Credenshow.TextView" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+
+    <style name="TextAppearance.Credenshow.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">@font/inter_bold</item>
+    </style>
+
+    <style name="TextAppearance.Credenshow.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">@font/inter_bold</item>
+    </style>
+
+    <style name="TextAppearance.Credenshow.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+    </style>
+
+    <style name="TextAppearance.Credenshow.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
+    <style name="TextAppearance.Credenshow.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
+    <style name="TextAppearance.Credenshow.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
+    <style name="TextAppearance.Credenshow.Button" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Títulos e textos reutilizados nas telas -->
+
+    <style name="Text.Credenshow.HeaderTitle" parent="">
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Credenshow.HeaderSubtitle" parent="">
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/cs_white_alpha_70</item>
+    </style>
+
+    <style name="Text.Credenshow.SectionTitle" parent="">
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/cs_dark</item>
+    </style>
+
+    <style name="Text.Credenshow.SectionSubtitle" parent="">
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/cs_text_secondary</item>
+    </style>
+
+    <style name="Text.Credenshow.Label" parent="">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/cs_dark</item>
+    </style>
+
+    <style name="Text.Credenshow.StatValue" parent="">
+        <item name="android:fontFamily">@font/inter_extrabold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/cs_primary</item>
+    </style>
+
+    <style name="Text.Credenshow.StatLabel" parent="">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/cs_text_secondary</item>
+    </style>
+
+    <style name="Text.Credenshow.Body" parent="">
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/cs_dark</item>
+    </style>
+
+    <!-- ===== Botões ===== -->
+
+    <!-- Botão principal: gradiente do site -->
+    <style name="Widget.Credenshow.Button" parent="Widget.Material3.Button">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:background">@drawable/bg_button_gradient</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.Credenshow.Button</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">10dp</item>
+        <item name="iconSize">20dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <!-- Botão secundário: contorno roxo (btn-outline do site) -->
+    <style name="Widget.Credenshow.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textAppearance">@style/TextAppearance.Credenshow.Button</item>
+        <item name="android:textColor">@color/cs_primary</item>
+        <item name="iconTint">@color/cs_primary</item>
+        <item name="strokeColor">@color/cs_primary</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">10dp</item>
+        <item name="iconSize">20dp</item>
+    </style>
+
+    <!-- Botão suave: fundo lilás claro -->
+    <style name="Widget.Credenshow.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textAppearance">@style/TextAppearance.Credenshow.Button</item>
+        <item name="backgroundTint">@color/cs_primary_soft</item>
+        <item name="android:textColor">@color/cs_primary_dark</item>
+        <item name="iconTint">@color/cs_primary_dark</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">8dp</item>
+        <item name="iconSize">20dp</item>
+    </style>
+
+    <!-- Botão de texto (voltar, cancelar) -->
+    <style name="Widget.Credenshow.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:textAppearance">@style/TextAppearance.Credenshow.Button</item>
+        <item name="android:textColor">@color/cs_text_secondary</item>
+        <item name="iconTint">@color/cs_text_secondary</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">8dp</item>
+        <item name="iconSize">20dp</item>
+    </style>
+
+    <style name="Widget.Credenshow.Button.Text.Danger">
+        <item name="android:textColor">@color/cs_error</item>
+        <item name="iconTint">@color/cs_error</item>
+    </style>
+
+    <!-- ===== Cards, campos e listas ===== -->
+
+    <style name="Widget.Credenshow.Card" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">@color/cs_surface</item>
+        <item name="cardCornerRadius">20dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="strokeColor">@color/cs_border</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget.Credenshow.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxStrokeColor">@color/cs_primary</item>
+        <item name="boxBackgroundColor">@color/cs_surface</item>
+        <item name="hintTextColor">@color/cs_primary</item>
+        <item name="startIconTint">@color/cs_primary</item>
+    </style>
+
+    <style name="Widget.Credenshow.SpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/cs_dark</item>
+    </style>
+
+    <style name="Widget.Credenshow.SpinnerDropDownItem" parent="@android:style/Widget.DropDownItem.Spinner">
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/cs_dark</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <!-- Container que imita um campo de formulário (usado em volta dos Spinners) -->
+    <style name="Widget.Credenshow.SelectBox" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:background">@drawable/bg_input</item>
+    </style>
+
+    <style name="Widget.Credenshow.Spinner" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">40dp</item>
+        <item name="android:popupBackground">@drawable/bg_popup</item>
+    </style>
+
+    <style name="Widget.Credenshow.SelectArrow" parent="">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_gravity">end|center_vertical</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:src">@drawable/ic_arrow_drop_down</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Ícone dentro de círculo com gradiente (card-icon do site) -->
+    <style name="Widget.Credenshow.IconBadge" parent="">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">@drawable/bg_icon_gradient</item>
+        <item name="tint">@color/white</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Ícone dentro de quadrado lilás claro -->
+    <style name="Widget.Credenshow.IconSoft" parent="">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">9dp</item>
+        <item name="android:background">@drawable/bg_icon_soft</item>
+        <item name="tint">@color/cs_primary</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <!-- Botão redondo translúcido no cabeçalho (voltar / fechar) -->
+    <style name="Widget.Credenshow.HeaderIconButton" parent="">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:background">@drawable/bg_header_icon_button</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Cabeçalho em gradiente das telas internas -->
+    <style name="Widget.Credenshow.Header" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_header</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">24dp</item>
+    </style>
+
+</resources>

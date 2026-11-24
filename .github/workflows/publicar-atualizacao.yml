@@ -1,0 +1,74 @@
+# Gera o release assinado e publica a atualização do app Leads em credenshow.com.br/app/leads/
+# a partir dos servidores do GitHub (não depende da rede local liberar FTP).
+#
+# Rodar: GitHub > Actions > "Publicar atualização do app Leads" > Run workflow (escolha a branch).
+# Segredos (Settings > Secrets and variables > Actions):
+#   KEYSTORE_BASE64    credenshow-release.jks em base64 (a MESMA chave do app de credenciamento) (base64 -i credenshow-release.jks | pbcopy)
+#   KEYSTORE_PASSWORD  senha do keystore.properties (storePassword = keyPassword)
+#   FTP_HOST           nome do servidor da HostGator (mesmo do repositório CredenShowApp)
+#   FTP_USER, FTP_PASS acesso FTP
+#   FTP_DIR            (opcional) sem ele usa "leads" (a conta FTP do app de credenciamento abre em app/).
+#                      Não cadastre "." como segredo: o GitHub passa a esconder todo ponto do log.
+name: Publicar atualização do app Leads
+
+on:
+  workflow_dispatch:
+
+# Uma publicação por vez, para não misturar APK e versao.json de builds diferentes
+concurrency:
+  group: publicar-atualizacao-leads
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Chave de assinatura
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$KEYSTORE_PASSWORD" ]; then
+            echo "::error::Cadastre os segredos KEYSTORE_BASE64 e KEYSTORE_PASSWORD"
+            exit 1
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > credenshow-release.jks
+          cat > keystore.properties <<EOF
+          storeFile=credenshow-release.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=credenshow
+          keyPassword=$KEYSTORE_PASSWORD
+          EOF
+
+      - name: Gerar release e enviar por FTP
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+          FTP_DIR: ${{ secrets.FTP_DIR }}
+        run: |
+          chmod +x gradlew publicar-atualizacao.sh
+          ./publicar-atualizacao.sh
+
+      # Cópia do APK publicado, para baixar pelo GitHub se precisar instalar à mão
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atualizacao
+          path: apks/atualizacao/
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Apagar chave do runner
+        if: always()
+        run: rm -f credenshow-release.jks keystore.properties

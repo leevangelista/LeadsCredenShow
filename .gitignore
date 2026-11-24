@@ -1,0 +1,35 @@
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Configuração local (caminho do SDK)
+local.properties
+
+# Artefatos e chaves de assinatura
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# Logs e sistema
+*.log
+.DS_Store
+
+# Senha da chave de assinatura release
+keystore.properties
+
+# Acesso FTP para publicar atualização (publicar-atualizacao.sh)
+publicacao.properties
+
+# APKs gerados localmente e dumps de memória do Gradle
+apks/
+*.hprof
+

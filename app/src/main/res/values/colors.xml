@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta CredenShow (mesma do site) -->
+    <color name="cs_primary">#667EEA</color>
+    <color name="cs_primary_dark">#5A67D8</color>
+    <color name="cs_primary_light">#818CF8</color>
+    <color name="cs_secondary">#764BA2</color>
+    <color name="cs_primary_soft">#F0F4FF</color>
+    <color name="cs_primary_soft_strong">#E3E8FF</color>
+
+    <color name="cs_dark">#1A1A2E</color>
+    <color name="cs_text_secondary">#666670</color>
+    <color name="cs_text_hint">#9A9AA8</color>
+    <color name="cs_background">#F5F6FA</color>
+    <color name="cs_surface">#FFFFFF</color>
+    <color name="cs_surface_muted">#F8F9FB</color>
+    <color name="cs_border">#E6E8F0</color>
+    <color name="cs_disabled">#C9CCE0</color>
+
+    <color name="cs_success">#2E7D32</color>
+    <color name="cs_success_soft">#E8F5E9</color>
+    <color name="cs_warning">#ED6C02</color>
+    <color name="cs_warning_soft">#FFF3E0</color>
+    <color name="cs_error">#C62828</color>
+    <color name="cs_error_soft">#FFEBEE</color>
+
+    <color name="cs_white_alpha_20">#33FFFFFF</color>
+    <color name="cs_white_alpha_70">#B3FFFFFF</color>
+    <color name="cs_black_alpha_60">#99000000</color>
+
+    <!-- Nomes antigos mantidos por compatibilidade -->
+    <color name="purple">@color/cs_primary</color>
+    <color name="purple_dark">@color/cs_primary_dark</color>
+    <color name="purple_gradient_start">@color/cs_primary</color>
+    <color name="purple_gradient_end">@color/cs_secondary</color>
+    <color name="purple_gradient">@color/cs_secondary</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="orange">@color/cs_warning</color>
+</resources>

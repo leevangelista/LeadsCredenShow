@@ -1,0 +1,16 @@
+# Copie para "publicacao.properties" (fora do git) e preencha com o acesso FTP da HostGator.
+# É o MESMO acesso do app de credenciamento (credenshow app 4/publicacao.properties).
+
+# Servidor FTP: nome do servidor da HostGator (ex.: br123.hostgator.com.br).
+# Com ftp.credenshow.com.br o FTPS falha: o certificado é *.hostgator.com.br
+FTP_HOST=
+FTP_USER=
+FTP_PASS=
+
+# Pasta, a partir da raiz da conta FTP. A conta do app de credenciamento já abre em app/,
+# então o Leads vai para "leads" (= credenshow.com.br/app/leads/).
+# Usuário principal do cPanel: public_html/app/leads
+FTP_DIR=leads
+
+# sim = FTPS (criptografado, recomendado). "nao" só se o envio falhar com erro de SSL/TLS.
+FTP_SEGURO=sim

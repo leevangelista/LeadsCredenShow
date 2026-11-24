@@ -1,0 +1,122 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+// Assinatura release: usa a MESMA chave do app de credenciamento.
+// keystore.properties (fora do git) aponta para ../credenshow app 4/credenshow-release.jks
+def keystorePropsFile = rootProject.file('keystore.properties')
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) keystorePropsFile.withInputStream { keystoreProps.load(it) }
+
+// Endereço da API. Para testar contra o XAMPP no emulador:
+//   ./gradlew installDebug -PleadsApiUrl=http://10.0.2.2:8098/ApiLeads/
+def apiUrl = (project.findProperty('leadsApiUrl') ?: 'https://credenshow.com.br/ApiLeads/').toString()
+
+// Versão do release: minutos desde 01/01/2025, então todo release novo tem número maior
+// (o Android só instala a atualização se o versionCode subir). ValueSource = recalcula a cada build.
+abstract class MinutosDesde2025 implements ValueSource<Integer, org.gradle.api.provider.ValueSourceParameters.None> {
+    static final long INICIO_2025_MS = 1735689600000L // 2025-01-01 00:00 UTC
+
+    @Override
+    Integer obtain() { (int) ((System.currentTimeMillis() - INICIO_2025_MS) / 60000) }
+}
+def versaoReleaseCode = providers.of(MinutosDesde2025) {}.get()
+def versaoReleaseNome = new Date(MinutosDesde2025.INICIO_2025_MS + versaoReleaseCode * 60000L).format('yyyy.MM.dd-HHmm')
+
+android {
+    namespace 'com.credenshow.leads'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.credenshow.leads"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        buildConfigField "String", "API_URL", "\"${apiUrl}\""
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile rootProject.file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            if (keystorePropsFile.exists()) signingConfig signingConfigs.release
+            minifyEnabled false
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+androidComponents {
+    onVariants(selector().withBuildType('release')) { variant ->
+        variant.outputs.each {
+            it.versionCode.set(versaoReleaseCode)
+            it.versionName.set(versaoReleaseNome)
+        }
+    }
+}
+
+// Release: deixa pronto em apks/atualizacao/ o que vai para credenshow.com.br/app/leads/
+// (leads.apk + versao.json). publicar-atualizacao.sh envia esses dois arquivos.
+tasks.matching { it.name == 'assembleRelease' }.configureEach {
+    def pastaApk = layout.buildDirectory.dir('outputs/apk/release').get().asFile
+    def pastaAtualizacao = rootProject.file('apks/atualizacao')
+    def codigo = versaoReleaseCode
+    def nome = versaoReleaseNome
+    doLast {
+        def apk = (pastaApk.listFiles()?.toList() ?: []).findAll { it.name.endsWith('.apk') }.max { it.lastModified() }
+        if (apk == null) return
+        pastaAtualizacao.mkdirs()
+        java.nio.file.Files.copy(apk.toPath(), new File(pastaAtualizacao, 'leads.apk').toPath(),
+                java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+        new File(pastaAtualizacao, 'versao.json').text = groovy.json.JsonOutput.prettyPrint(
+                groovy.json.JsonOutput.toJson([versionCode: codigo, versionName: nome, apk: 'leads.apk']))
+        println "Atualização pronta para enviar (credenshow.com.br/app/leads/): ${pastaAtualizacao}"
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // Câmera + leitura de QR Code (mesmo do app de credenciamento)
+    implementation 'androidx.camera:camera-camera2:1.3.0'
+    implementation 'androidx.camera:camera-lifecycle:1.3.0'
+    implementation 'androidx.camera:camera-view:1.3.0'
+    implementation 'com.google.mlkit:barcode-scanning:17.2.0'
+
+    // API
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+}
